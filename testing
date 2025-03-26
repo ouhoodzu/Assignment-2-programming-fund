@@ -1,1 +1,113 @@
+# testing (organized test cases)
+# This file tests all major features of the Royal Stay Hotel Management System with 2 examples each
+
+from classes import Guest, LoyalGuest, RoomType, Room, Booking, Invoice, Hotel, ServiceRequest, LoyaltyProgram
+
+# --- Guest Account Creation ---
+def test_guest_creation():
+    print("\n--- Test: Guest Account Creation ---")
+
+    # Example 1
+    guest1 = Guest("Lamia", "lamia@email.com", 50112233, "Silver")
+    print(f"Guest 1: {guest1}")
+
+    # Example 2
+    guest2 = Guest("Noora", "noora@email.com", 50998877, "Gold")
+    print(f"Guest 2: {guest2}")
+
+# --- Searching for Available Rooms ---
+def test_search_rooms():
+    print("\n--- Test: Searching for Available Rooms ---")
+
+    # Create two room types
+    type1 = RoomType("Suite", 700.0, 4, True)
+    type2 = RoomType("Double", 500.0, 2, False)
+
+    # Create two rooms with amenities
+    room1 = Room("101", True, 750.0, type1, ["Wi-Fi", "Mini Bar"])
+    room2 = Room("102", True, 500.0, type2, ["Wi-Fi"])
+
+    # Example 1: Search for rooms with balcony and Wi-Fi
+    print(f"Room 1 is available: {room1.get_is_available()} with amenities {room1.get_amenities()}")
+    print(f"Room 2 is available: {room2.get_is_available()} with amenities {room2.get_amenities()}")
+
+# --- Making a Room Reservation ---
+def test_room_booking():
+    print("\n--- Test: Room Booking ---")
+    guest = Guest("Salma", "salma@email.com", 50334455, "Gold")
+    room = Room("201", True, 650.0, RoomType("Deluxe", 600.0, 2, True), ["TV"])
+
+    # Example 1
+    booking1 = Booking("B001", "2025-01-02", "2025-01-04", guest, room)
+    print(f"Booking 1: {booking1}")
+
+    # Example 2
+    guest2 = Guest("Maha", "maha@email.com", 50889922, "Silver")
+    room2 = Room("202", True, 580.0, RoomType("Double", 500.0, 2, False), ["Wi-Fi"])
+    booking2 = Booking("B002", "2025-01-06", "2025-01-08", guest2, room2)
+    print(f"Booking 2: {booking2}")
+
+# --- Booking Confirmation (simulated with print) ---
+def test_booking_confirmation():
+    print("\n--- Test: Booking Confirmation ---")
+    print("Booking confirmed via simulated notification (print statement).")
+    print("Confirmation email sent to guest@email.com")
+    print("App notification: Your room has been booked!")
+
+# --- Invoice Generation ---
+def test_invoice():
+    print("\n--- Test: Invoice Generation ---")
+    guest = Guest("Hamad", "hamad@email.com", 50556677, "Bronze")
+    room = Room("203", True, 500.0, RoomType("Double", 500.0, 2, False), ["TV"])
+    booking = Booking("B003", "2025-01-05", "2025-01-07", guest, room)
+
+    # Example 1
+    invoice1 = Invoice("I001", booking, 100.0, 1100.0)
+    print(f"Invoice 1: {invoice1}")
+
+    # Example 2
+    invoice2 = Invoice("I002", booking, 80.0, 1080.0)
+    print(f"Invoice 2: {invoice2}")
+
+# --- Payment Validation ---
+def test_payment_validation():
+    print("\n--- Test: Payment Validation ---")
+    guest = Guest("Latifa", "latifa@email.com", 50667788, "Gold")
+    room = Room("204", True, 600.0, RoomType("Suite", 700.0, 3, True), ["TV", "Wi-Fi"])
+    booking = Booking("B004", "2025-01-10", "2025-01-12", guest, room)
+    invoice = Invoice("I003", booking, 50.0, 1250.0)
+
+    # Example: Check amount validity manually (just a print in this case)
+    print(f"Validating payment for Invoice {invoice.get_invoice_id()}: AED {invoice.get_total_amount()} paid - Status: Valid")
+
+# --- Reservation History Display ---
+def test_reservation_history():
+    print("\n--- Test: Reservation History ---")
+    guest = Guest("Rawda", "rawda@email.com", 50991122, "Silver")
+    booking1 = Booking("B005", "2025-01-01", "2025-01-03", guest, Room("301", True, 400.0, RoomType("Standard", 400.0, 2, False), []))
+    booking2 = Booking("B006", "2025-02-01", "2025-02-02", guest, Room("302", True, 430.0, RoomType("Standard", 400.0, 2, False), []))
+    guest.set_reservation_history([booking1, booking2])
+
+    for b in guest.get_reservation_history():
+        print(b)
+
+# --- Reservation Cancellation (Simulated) ---
+def test_reservation_cancellation():
+    print("\n--- Test: Reservation Cancellation ---")
+    room = Room("305", False, 450.0, RoomType("Standard", 400.0, 2, False), [])
+    print(f"Before cancellation: Room {room.get_room_number()} availability: {room.get_is_available()}")
+    room.set_is_available(True)
+    print(f"After cancellation: Room {room.get_room_number()} availability: {room.get_is_available()}")
+
+
+# Run all tests
+if __name__ == "__main__":
+    test_guest_creation()
+    test_search_rooms()
+    test_room_booking()
+    test_booking_confirmation()
+    test_invoice()
+    test_payment_validation()
+    test_reservation_history()
+    test_reservation_cancellation()
 
