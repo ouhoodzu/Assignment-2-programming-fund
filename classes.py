@@ -51,7 +51,7 @@ class LoyalGuest(Guest):
         super().__init__(name, email, phone_number, loyalty_status, reservation_history)
         self._discount_rate = discount_rate
         self._loyalty_points = loyalty_points
-        self._loyalty_program = LoyaltyProgram()  # 🔗 Directed Association: LoyalGuest "uses" LoyaltyProgram
+        self._loyalty_program = LoyaltyProgram()  #  Directed Association: LoyalGuest "uses" LoyaltyProgram
 
     def get_discount_rate(self) -> float:
         return self._discount_rate
@@ -66,7 +66,7 @@ class LoyalGuest(Guest):
         self._loyalty_points = points
 
     def earn_loyalty_points(self):
-        # 🧠 Uses the LoyaltyProgram to calculate and add points
+        #  Uses the LoyaltyProgram to calculate and add points
         new_points = self._loyalty_program.calculate_points()
         self._loyalty_points += new_points
 
